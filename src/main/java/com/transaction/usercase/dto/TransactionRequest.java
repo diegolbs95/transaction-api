@@ -1,6 +1,8 @@
 package com.transaction.usercase.dto;
 
-public record TransactionRequest(Double value,
+import java.math.BigDecimal;
+
+public record TransactionRequest(BigDecimal value,
                                  String payer,
                                  String payee) {
 }
