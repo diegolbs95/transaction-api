@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Random;
+
+import static com.transaction.infra.util.GenerateAccountNumber.generateAccountNumber;
 
 @Service
 @RequiredArgsConstructor
@@ -24,14 +25,5 @@ public class AccountService {
                 .openDate(LocalDateTime.now().toString())
                 .build();
         return repository.save(account);
-    }
-
-    private static String generateAccountNumber() {
-        var random = new Random();
-        var numberAccount = new StringBuilder();
-        for (int i = 0; i < 6; i++) {
-            numberAccount.append(random.nextInt(10));
-        }
-        return numberAccount.toString();
     }
 }

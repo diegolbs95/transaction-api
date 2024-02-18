@@ -22,13 +22,13 @@ public class WebClientService {
                 .block();
     }
 
-    public Boolean notification(){
+    public String notification(){
         return webClient.get()
                 .uri("/54dc2cf1-3add-45b5-b5a9-6bf7e7f1f4a6")
                 .retrieve()
                 .onStatus(HttpStatusCode::isError,
                         error -> Mono.error(new RuntimeException("Error when calling Request from Notification")))
-                .bodyToMono(Boolean.class)
+                .bodyToMono(String.class)
                 .block();
     }
 }

@@ -16,6 +16,7 @@ public class TransactionValidation {
 
         log.info("Validation if the user is a legal entity.");
         if (user.getUserEnum().getCode().equals(1)) {
+            log.error("User with CNPJ: " + user.getCpfCnpj() + " not authorized");
             throw new UnauthorizedPayerException("Retailer type users cannot make transfers, only receive.");
         }
     }
@@ -25,14 +26,14 @@ public class TransactionValidation {
         log.info("Validation if transaction value is greater than available balance.");
         if (value.compareTo(balance) > 0) {
             throw new TransactionException("Transaction value is greater than available balance. Balance: "
-                    + balance.toString() + "Transaction: " + value.toString());
+                    + balance.toString() + " Transaction: " + value.toString());
         }
     }
 
-    public static void validadeTransaction(String request){
-        if (!request.equalsIgnoreCase("Autorizado")){
-            log.error("Unauthorized transaction.");
-            throw new TransactionException("Unauthorized transaction.");
-        }
+    public static void executeTransaction(User payer, User payee, BigDecimal value){
+        log.info("Carrying out the subtraction of the payer’s value");
+        payer.getAccount().setBalance(payer.getAccount().getBalance().subtract(value));
+        log.info("Execute transaction");
+        payee.getAccount().setBalance(payee.getAccount().getBalance().add(value));
     }
 }

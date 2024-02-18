@@ -6,6 +6,7 @@ import com.transaction.usercase.service.CarryOutTransactionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ public class TransactionControllerImpl implements TransactionController {
 
     @Override
     @PostMapping("/transaction")
-    public String CarryOutTransaction(TransactionRequest request) {
+    public String CarryOutTransaction(@RequestBody TransactionRequest request) {
 
         log.info("Transaction service initialized.");
         var response = service.carryOutTransaction(request);

@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.util.Arrays;
 
 import static com.transaction.infra.util.TransactionValidation.*;
 
@@ -19,25 +19,26 @@ public class CarryOutTransactionService {
 
     private final UserRepository repository;
     private final WebClientService webClientService;
+    private final TransactionAndNotificationValidate validate;
 
-    public String carryOutTransaction(TransactionRequest request){
+    public String carryOutTransaction(TransactionRequest request) {
 
         var payer = findByUserOrCpfCnpj(request.payer());
-        var payee = findByUserOrCpfCnpj(request.payee());
 
         validatePayer(payer);
         validateBalance(payer.getAccount().getBalance(), request.value());
-
-         validadeTransaction(webClientService.authorizer());
+        validate.validateTransaction(webClientService.authorizer());
          log.info("Authorized transaction.");
 
-         executeTransaction(payer, payee, request.value());
-         log.info(String.format("Successful transaction from Payer: %s, to Beneficiary: %s, in value: %s.",
-                 payer, payee, request.value()));
+        var payee = findByUserOrCpfCnpj(request.payee());
 
-         if (!webClientService.notification()) {
-             log.error("Notification service unavailable.");
-         }
+        executeTransaction(payer, payee, request.value());
+        repository.saveAll(Arrays.asList(payer, payee));
+
+        log.info(String.format("Successful transaction from Payer: %s, to Beneficiary: %s, in value: %s.",
+                payer.getCpfCnpj(), payee.getCpfCnpj(), request.value()));
+
+        validate.validateNotification(webClientService.notification());
 
         return "Transaction completed successfully.";
     }
@@ -45,12 +46,5 @@ public class CarryOutTransactionService {
     private User findByUserOrCpfCnpj(String cpfCnpj){
         return repository.findByCpfCnpj(cpfCnpj)
                 .orElseThrow(() -> new PayerOrBeneficiaryDoesNotExistException("User not found with CPF or CNPJ."));
-    }
-
-    private void executeTransaction(User payer, User payee, BigDecimal value){
-        log.info("Carrying out the subtraction of the payer’s value");
-        payer.getAccount().setBalance(payer.getAccount().getBalance().subtract(value));
-        log.info("Execute transaction");
-        payee.getAccount().setBalance(payee.getAccount().getBalance().add(value));
     }
 }

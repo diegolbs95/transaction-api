@@ -5,10 +5,7 @@ import com.transaction.usercase.dto.UserDto;
 import com.transaction.usercase.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -23,7 +20,7 @@ public class RegisterUserControllerImpl implements RegisterUserController {
     @Override
     @PostMapping("/register")
     @ResponseStatus(CREATED)
-    public String register(UserDto userDto) {
+    public String register(@RequestBody UserDto userDto) {
 
        log.info("User registration service initialized.");
        var response = userService.registerUser(userDto);

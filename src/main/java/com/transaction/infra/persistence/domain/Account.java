@@ -1,9 +1,7 @@
 package com.transaction.infra.persistence.domain;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -12,6 +10,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Builder
 @Entity
 @Table(name = "tb_accout")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Account {
 
     @Id

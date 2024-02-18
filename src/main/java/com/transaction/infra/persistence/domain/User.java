@@ -26,6 +26,7 @@ public class User {
     private UserEnum userEnum;
     @Column(name = "cpf_cnpj",unique = true)
     @Pattern("\\d{11}|\\d{14}")
+    @Getter
     private String cpfCnpj;
     @Getter
     @Setter
