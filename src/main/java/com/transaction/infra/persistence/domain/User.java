@@ -4,7 +4,6 @@ package com.transaction.infra.persistence.domain;
 import com.transaction.infra.enums.UserEnum;
 import jakarta.persistence.*;
 import lombok.*;
-import org.intellij.lang.annotations.Pattern;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -12,7 +11,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tb_user")
+@Table(name = "tb_users")
 public class User {
 
     @Id
@@ -24,8 +23,7 @@ public class User {
     @Getter
     @Enumerated(EnumType.ORDINAL)
     private UserEnum userEnum;
-    @Column(name = "cpf_cnpj",unique = true)
-    @Pattern("\\d{11}|\\d{14}")
+    @Column(name = "cpf_cnpj",unique = true, length = 14)
     @Getter
     private String cpfCnpj;
     @Getter

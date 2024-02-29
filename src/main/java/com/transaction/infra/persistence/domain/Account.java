@@ -9,7 +9,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Builder
 @Entity
-@Table(name = "tb_accout")
+@Table(name = "tb_accouts")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Account {
@@ -18,12 +18,14 @@ public class Account {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
     private String accountNumber;
-    @Column(name = "cpf_cnpj_titular")
+    @Column(name = "cpf_cnpj_titular", length = 14)
     private String cpfCnpjHolder;
     @Getter
     @Setter
     private BigDecimal balance;
+    @Column(length = 19)
     private String openDate;
+    @Column(length = 19)
     private String closingDate;
 
 }

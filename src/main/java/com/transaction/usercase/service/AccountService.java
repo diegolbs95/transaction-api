@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static com.transaction.infra.util.GenerateAccountNumber.generateAccountNumber;
 
@@ -18,11 +19,13 @@ public class AccountService {
 
     public Account created(String cpfCnpj) {
 
+        var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
         var account =  Account.builder()
                 .accountNumber(generateAccountNumber())
                 .balance(new BigDecimal("100.0"))
                 .cpfCnpjHolder(cpfCnpj)
-                .openDate(LocalDateTime.now().toString())
+                .openDate(LocalDateTime.now().format(formatter))
                 .build();
         return repository.save(account);
     }
