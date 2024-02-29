@@ -35,7 +35,7 @@ public class TransactionAndNotificationValidate {
                 throw new UnauthorizedNotificationException("Unauthorized notification.");
             }
         } catch (JsonProcessingException e) {
-            throw new UnauthorizedNotificationException("Unauthorized notification.");
+            throw new UnauthorizedTransactionException("Unauthorized transaction.");
         }
     }
 }
