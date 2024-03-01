@@ -1,6 +1,7 @@
 package com.transaction.infra.exception;
 
 import com.transaction.usercase.dto.ErrorResponse;
+import org.postgresql.util.PSQLException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -37,5 +38,12 @@ public class CustomExceptionHandler {
 
         ErrorResponse errorResponse = new ErrorResponse(UNAUTHORIZED, ex.getMessage());
         return new ResponseEntity<>(errorResponse, UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(PSQLException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(PSQLException ex) {
+
+        ErrorResponse errorResponse = new ErrorResponse(CONFLICT, ex.getMessage());
+        return new ResponseEntity<>(errorResponse, CONFLICT);
     }
 }

@@ -11,7 +11,7 @@ public class UserFactory {
         return User.builder()
                 .email(userDto.email())
                 .nome(userDto.nome())
-                .userEnum(userDto.userEnum())
+                .userType(userDto.userType())
                 .cpfCnpj(userDto.cpfCnpj())
                 .build();
     }

@@ -1,7 +1,7 @@
 package com.transaction.infra.persistence.domain;
 
 
-import com.transaction.infra.enums.UserEnum;
+import com.transaction.infra.enums.UserType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,7 +22,7 @@ public class User {
     private String email;
     @Getter
     @Enumerated(EnumType.ORDINAL)
-    private UserEnum userEnum;
+    private UserType userType;
     @Column(name = "cpf_cnpj",unique = true, length = 14)
     @Getter
     private String cpfCnpj;

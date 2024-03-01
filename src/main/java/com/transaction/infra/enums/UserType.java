@@ -1,17 +1,17 @@
 package com.transaction.infra.enums;
 
-public enum UserEnum {
+import lombok.Getter;
+
+@Getter
+public enum UserType {
 
     FISICA(0),
     LOJISTA(1);
 
     private final Integer code;
 
-    UserEnum(Integer code) {
+    UserType(Integer code) {
         this.code = code;
     }
 
-    public Integer getCode() {
-        return code;
-    }
 }

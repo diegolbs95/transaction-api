@@ -15,7 +15,7 @@ public class TransactionValidation {
     public static void validatePayer(User user){
 
         log.info("Validation if the user is a legal entity.");
-        if (user.getUserEnum().getCode().equals(1)) {
+        if (user.getUserType().getCode().equals(1)) {
             log.error("User with CNPJ: " + user.getCpfCnpj() + " not authorized");
             throw new UnauthorizedPayerException("Retailer type users cannot make transfers, only receive.");
         }

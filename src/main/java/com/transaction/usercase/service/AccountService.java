@@ -4,6 +4,7 @@ import com.transaction.infra.persistence.domain.Account;
 import com.transaction.infra.persistence.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ public class AccountService {
 
     private final AccountRepository repository;
 
+    @Transactional
     public Account created(String cpfCnpj) {
 
         var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

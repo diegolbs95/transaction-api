@@ -1,8 +1,10 @@
+server:
+  port: 8081
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5441/transaction_database
-    username: seu_usuario
-    password: sua_senha
+    username: transaction
+    password: transaction123
     driver-class-name: org.postgresql.Driver
     ddl-auto: update
     hikari:
