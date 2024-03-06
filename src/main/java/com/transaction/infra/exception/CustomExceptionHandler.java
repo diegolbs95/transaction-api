@@ -1,6 +1,7 @@
 package com.transaction.infra.exception;
 
 import com.transaction.usercase.dto.ErrorResponse;
+import org.hibernate.JDBCException;
 import org.postgresql.util.PSQLException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -43,6 +44,15 @@ public class CustomExceptionHandler {
     public ResponseEntity<ErrorResponse> handlePSQLException(PSQLException ex) {
 
         ErrorResponse errorResponse = new ErrorResponse(CONFLICT, ex.getMessage());
+        return new ResponseEntity<>(errorResponse, CONFLICT);
+    }
+
+    @ExceptionHandler(JDBCException.class)
+    public ResponseEntity<ErrorResponse> handleJdbc(JDBCException ex) {
+
+        ErrorResponse errorResponse = new ErrorResponse(CONFLICT,
+                ex.getMessage().contains("CONSTRAINT_INDEX_8") ? "Conflict when adding user, CPF/CNPJ already exists in the database" :
+                "Conflict when adding user, EMAIL already exists in the database");
         return new ResponseEntity<>(errorResponse, CONFLICT);
     }
 }
