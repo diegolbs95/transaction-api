@@ -20,7 +20,7 @@ public class TransactionControllerImpl implements TransactionController {
 
     @Override
     @PostMapping("/transaction")
-    public String CarryOutTransaction(@RequestBody TransactionRequest request) {
+    public String carryOutTransaction(@RequestBody TransactionRequest request) {
 
         log.info("Transaction service initialized.");
         var response = service.carryOutTransaction(request);
