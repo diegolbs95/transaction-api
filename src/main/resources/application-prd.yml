@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5441/transaction_database
+    url: jdbc:postgresql://localhost:5432/transaction_database
     username: transaction
     password: transaction123
     driver-class-name: org.postgresql.Driver
@@ -9,16 +9,3 @@ spring:
       minimum-idle: 1
       maximum-pool-size: 10
       connection-timeout: 30000
-
-management:
-  endpoints:
-    enabled-by-default: false
-    web:
-      exposure:
-        include: 'health,prometheus'
-  endpoint:
-    health:
-      enabled: true
-      show-details: always
-    prometheus:
-      enabled: true
