@@ -1,29 +1,52 @@
-version: '3'
+version: '3.8'
+
+volumes:
+  prometheus_data:
+  grafana_data:
 
 services:
-  db_transaction:
-    image: postgres
-    restart: always
-    volumes:
-      - ./script.sql:/docker-entrypoint-initdb.d/script.sql
-    environment:
-      - POSTGRES_DB=transaction_database
-      - POSTGRES_USER=transaction
-      - POSTGRES_PASSWORD=transaction123
-    ports:
-      - 5441:5432
+#  db_transaction:
+#    image: postgres
+#    restart: always
+#    volumes:
+#      - ./script.sql:/docker-entrypoint-initdb.d/script.sql
+#    networks:
+#      - aw-network
+#    environment:
+#      - POSTGRES_DB=transaction_database
+#      - POSTGRES_USER=transaction
+#      - POSTGRES_PASSWORD=transaction123
+#    ports:
+#      - 5441:5432
+#
+#  backend_transaction:
+#    build:
+#      dockerfile: ./Dockerfile
+#    ports:
+#      - 8080:8080
+#    environment:
+#      - ALLOW_ORIGIN=http://localhost:8080
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://db_transaction:5432/transaction_database
+#      - SPRING_DATASOURCE_USERNAME=transaction
+#      - SPRING_DATASOURCE_PASSWORD=transaction123
 
-  backend_transaction:
-    build:
-      dockerfile: ./Dockerfile
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - aw-network
     ports:
-      - 8080:8080
-    environment:
-      - ALLOW_ORIGIN=http://localhost:8080
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db_transaction:5432/transaction_database
-      - SPRING_DATASOURCE_USERNAME=transaction
-      - SPRING_DATASOURCE_PASSWORD=transaction123
+      - 9090:9090
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    networks:
+      - aw-network
 
 networks:
-  wordpress_net:
+  aw-network:
     driver: bridge
