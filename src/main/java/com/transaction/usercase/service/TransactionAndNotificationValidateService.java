@@ -20,7 +20,7 @@ public class TransactionAndNotificationValidateService {
             var rootNode = objectMapper.readTree(request);
             if (!"Autorizado".equalsIgnoreCase(rootNode.get("message").asText())){
                 log.error("Unauthorized transaction.");
-                throw new UnauthorizedTransactionException("Unauthorized transaction.");
+                throw new UnauthorizedTransactionException("Request Unauthorized transaction");
             }
         } catch (JsonProcessingException e) {
             throw new UnauthorizedTransactionException("Unauthorized transaction.");
@@ -35,7 +35,7 @@ public class TransactionAndNotificationValidateService {
                 throw new UnauthorizedNotificationException("Unauthorized notification.");
             }
         } catch (JsonProcessingException e) {
-            throw new UnauthorizedNotificationException("Unauthorized notification.");
+            throw new UnauthorizedNotificationException("Request Unauthorized notification.");
         }
     }
 }
