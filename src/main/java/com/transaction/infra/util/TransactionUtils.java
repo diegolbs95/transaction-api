@@ -12,21 +12,18 @@ import java.math.BigDecimal;
 @UtilityClass
 public class TransactionUtils {
 
-    public static void validatePayer(User user){
+    public static void validatePayer(User user, BigDecimal value){
 
         log.info("Validation if the user is a legal entity.");
         if (user.getUserType().getCode().equals(1)) {
             log.error("User with CNPJ: " + user.getCpfCnpj() + " not authorized");
             throw new UnauthorizedPayerException("Retailer type users cannot make transfers, only receive.");
         }
-    }
-
-    public static void validateBalance(BigDecimal balance, BigDecimal value) {
 
         log.info("Validation if transaction value is greater than available balance.");
-        if (value.compareTo(balance) > 0) {
+        if (user.getAccount().getBalance().compareTo(value) < 0) {
             throw new TransactionException("Transaction value is greater than available balance. Balance: "
-                    + balance.toString() + " Transaction: " + value.toString());
+                    + user.getAccount().getBalance() + " Transaction: " + value.toString());
         }
     }
 

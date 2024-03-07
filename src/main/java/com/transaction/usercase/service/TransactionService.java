@@ -25,8 +25,7 @@ public class TransactionService {
 
         var payer = findByUserOrCpfCnpj(request.payer());
 
-        validatePayer(payer);
-        validateBalance(payer.getAccount().getBalance(), request.value());
+        validatePayer(payer, request.value());
         validate.validateTransaction(webClientService.authorizer());
         log.info("Authorized transaction.");
 

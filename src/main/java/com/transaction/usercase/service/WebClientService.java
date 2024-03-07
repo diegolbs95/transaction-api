@@ -1,6 +1,7 @@
 package com.transaction.usercase.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -10,11 +11,16 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class WebClientService {
 
+    @Value("${transaction.path.authorizer}")
+    private String pathAuthorizer;
+    @Value("${transaction.path.notification}")
+    private String pathNotification;
+
     private final WebClient webClient;
 
     public String authorizer(){
         return webClient.get()
-                .uri("/5794d450-d2e2-4412-8131-73d0293ac1cc")
+                .uri(pathAuthorizer)
                 .retrieve()
                 .onStatus(HttpStatusCode::isError,
                         error -> Mono.error(new RuntimeException("Error when calling Authorizer Request")))
@@ -24,7 +30,7 @@ public class WebClientService {
 
     public String notification(){
         return webClient.get()
-                .uri("/54dc2cf1-3add-45b5-b5a9-6bf7e7f1f4a6")
+                .uri(pathNotification)
                 .retrieve()
                 .onStatus(HttpStatusCode::isError,
                         error -> Mono.error(new RuntimeException("Error when calling Request from Notification")))

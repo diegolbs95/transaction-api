@@ -4,5 +4,5 @@ import com.transaction.usercase.dto.UserDto;
 
 public interface UserController {
 
-    String register(UserDto userDto);
+    String createUser(UserDto userDto);
 }

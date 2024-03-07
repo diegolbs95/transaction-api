@@ -18,12 +18,12 @@ public class UserControllerImpl implements UserController {
     private final UserService userService;
 
     @Override
-    @PostMapping("/register/user")
+    @PostMapping("/create/users")
     @ResponseStatus(CREATED)
-    public String register(@RequestBody UserDto userDto) {
+    public String createUser(@RequestBody UserDto userDto) {
 
        log.info("User registration service initialized.");
-       var response = userService.registerUser(userDto);
+       var response = userService.createUser(userDto);
        log.info("User registration service completed.");
         return response;
     }

@@ -18,12 +18,12 @@ public class UserService {
     private final AccountService accountService;
 
     @Transactional
-    public String registerUser(UserDto userDto) {
+    public String createUser(UserDto userDto) {
 
         var user = userFactory(userDto);
 
         log.info("Account creation request.");
-        user.setAccount(accountService.created(userDto.cpfCnpj()));
+        user.setAccount(accountService.createAccount(userDto.cpfCnpj()));
         log.info("Success when creating user account with CPF/CNPJ: " + userDto.cpfCnpj());
 
         repository.save(user);

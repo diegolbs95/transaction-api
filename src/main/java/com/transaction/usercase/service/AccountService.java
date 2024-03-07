@@ -6,12 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static com.transaction.infra.factory.AccountFactory.accountFactory;
-import static com.transaction.infra.util.GenerateAccountNumber.generateAccountNumber;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +17,7 @@ public class AccountService {
     private final AccountRepository repository;
 
     @Transactional
-    public Account created(String cpfCnpj) {
+    public Account createAccount(String cpfCnpj) {
 
         var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
