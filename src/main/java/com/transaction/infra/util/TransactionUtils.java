@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 @Log4j2
 @UtilityClass
-public class TransactionValidation {
+public class TransactionUtils {
 
     public static void validatePayer(User user){
 

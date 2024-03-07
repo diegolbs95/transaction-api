@@ -1,8 +1,8 @@
 package com.transaction.infra.controller;
 
-import com.transaction.usercase.dto.TransactionRequest;
+import com.transaction.usercase.dto.TransactionDTO;
 
 public interface DepositController {
 
-    String executeDeposit(TransactionRequest request);
+    String executeDeposit(TransactionDTO request);
 }

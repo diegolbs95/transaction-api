@@ -1,8 +1,8 @@
 package com.transaction.infra.controller;
 
-import com.transaction.usercase.dto.TransactionRequest;
+import com.transaction.usercase.dto.TransactionDTO;
 
 public interface TransactionController {
 
-    String carryOutTransaction(TransactionRequest request);
+    String carryOutTransaction(TransactionDTO request);
 }

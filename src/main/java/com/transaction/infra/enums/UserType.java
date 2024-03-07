@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public enum UserType {
 
-    FISICA(0),
-    LOJISTA(1);
+    COMMON(0),
+    MERCHANT(1);
 
     private final Integer code;
 

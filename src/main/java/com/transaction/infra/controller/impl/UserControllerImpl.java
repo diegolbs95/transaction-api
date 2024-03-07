@@ -1,6 +1,6 @@
 package com.transaction.infra.controller.impl;
 
-import com.transaction.infra.controller.RegisterUserController;
+import com.transaction.infra.controller.UserController;
 import com.transaction.usercase.dto.UserDto;
 import com.transaction.usercase.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -13,12 +13,12 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-public class RegisterUserControllerImpl implements RegisterUserController {
+public class UserControllerImpl implements UserController {
 
     private final UserService userService;
 
     @Override
-    @PostMapping("/register")
+    @PostMapping("/register/user")
     @ResponseStatus(CREATED)
     public String register(@RequestBody UserDto userDto) {
 

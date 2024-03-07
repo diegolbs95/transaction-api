@@ -1,7 +1,7 @@
 package com.transaction.infra.controller.impl;
 
 import com.transaction.infra.controller.DepositController;
-import com.transaction.usercase.dto.TransactionRequest;
+import com.transaction.usercase.dto.TransactionDTO;
 import com.transaction.usercase.service.DepositService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -20,7 +20,7 @@ public class DepositControllerImpl implements DepositController {
 
     @Override
     @PostMapping("/deposite")
-    public String executeDeposit(@RequestBody TransactionRequest request) {
+    public String executeDeposit(@RequestBody TransactionDTO request) {
 
         log.info("Deposit service started");
         var response = service.deposite(request);

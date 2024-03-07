@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static com.transaction.infra.factory.AccountFactory.accountFactory;
 import static com.transaction.infra.util.GenerateAccountNumber.generateAccountNumber;
 
 @Service
@@ -23,12 +24,7 @@ public class AccountService {
 
         var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        var account =  Account.builder()
-                .accountNumber(generateAccountNumber())
-                .balance(new BigDecimal("100.0"))
-                .cpfCnpjHolder(cpfCnpj)
-                .openDate(LocalDateTime.now().format(formatter))
-                .build();
+        var account =  accountFactory(cpfCnpj, formatter);
         return repository.save(account);
     }
 }

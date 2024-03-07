@@ -3,32 +3,32 @@ package com.transaction.usercase.service;
 import com.transaction.infra.exception.PayerOrBeneficiaryDoesNotExistException;
 import com.transaction.infra.persistence.domain.User;
 import com.transaction.infra.persistence.repository.UserRepository;
-import com.transaction.usercase.dto.TransactionRequest;
+import com.transaction.usercase.dto.TransactionDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
-import static com.transaction.infra.util.TransactionValidation.*;
+import static com.transaction.infra.util.TransactionUtils.*;
 
 @Log4j2
 @Service
 @RequiredArgsConstructor
-public class CarryOutTransactionService {
+public class TransactionService {
 
     private final UserRepository repository;
     private final WebClientService webClientService;
-    private final TransactionAndNotificationValidate validate;
+    private final TransactionAndNotificationValidateService validate;
 
-    public String carryOutTransaction(TransactionRequest request) {
+    public String carryOutTransaction(TransactionDTO request) {
 
         var payer = findByUserOrCpfCnpj(request.payer());
 
         validatePayer(payer);
         validateBalance(payer.getAccount().getBalance(), request.value());
         validate.validateTransaction(webClientService.authorizer());
-         log.info("Authorized transaction.");
+        log.info("Authorized transaction.");
 
         var payee = findByUserOrCpfCnpj(request.payee());
 

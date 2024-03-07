@@ -2,7 +2,7 @@ package com.transaction.usercase.service;
 
 import com.transaction.infra.exception.PayerOrBeneficiaryDoesNotExistException;
 import com.transaction.infra.persistence.repository.UserRepository;
-import com.transaction.usercase.dto.TransactionRequest;
+import com.transaction.usercase.dto.TransactionDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class DepositService {
 
     private final UserRepository repository;
 
-    public String deposite(TransactionRequest request) {
+    public String deposite(TransactionDTO request) {
 
         var payee = repository.findByCpfCnpj(request.payee())
                 .orElseThrow(() -> new PayerOrBeneficiaryDoesNotExistException("User not found with CPF or CNPJ."));

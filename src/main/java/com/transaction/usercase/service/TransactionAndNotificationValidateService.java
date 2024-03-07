@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class TransactionAndNotificationValidate {
+public class TransactionAndNotificationValidateService {
 
     private final ObjectMapper objectMapper;
 
@@ -35,7 +35,7 @@ public class TransactionAndNotificationValidate {
                 throw new UnauthorizedNotificationException("Unauthorized notification.");
             }
         } catch (JsonProcessingException e) {
-            throw new UnauthorizedTransactionException("Unauthorized notification.");
+            throw new UnauthorizedNotificationException("Unauthorized notification.");
         }
     }
 }
