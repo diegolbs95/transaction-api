@@ -9,3 +9,9 @@ spring:
       minimum-idle: 1
       maximum-pool-size: 10
       connection-timeout: 30000
+
+transaction:
+  host: https://run.mocky.io
+  path:
+    authorizer: /v3/5794d450-d2e2-4412-8131-73d0293ac1cc
+    notification: /v3/54dc2cf1-3add-45b5-b5a9-6bf7e7f1f4
