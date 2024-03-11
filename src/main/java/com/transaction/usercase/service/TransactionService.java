@@ -9,6 +9,7 @@ import com.transaction.usercase.dto.TransactionDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 
@@ -25,6 +26,7 @@ public class TransactionService {
     private final WebClientService webClientService;
     private final TransactionAndNotificationValidateService validate;
 
+    @Transactional
     public Transaction carryOutTransaction(TransactionDTO request) {
 
         var payer = findByUserOrCpfCnpj(request.payer());
