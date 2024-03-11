@@ -1,6 +1,7 @@
 package com.transaction.infra.controller.impl;
 
 import com.transaction.infra.controller.TransactionController;
+import com.transaction.infra.persistence.domain.Transaction;
 import com.transaction.usercase.dto.TransactionDTO;
 import com.transaction.usercase.service.TransactionService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class TransactionControllerImpl implements TransactionController {
 
     @Override
     @PostMapping("/transaction")
-    public String carryOutTransaction(@RequestBody TransactionDTO request) {
+    public Transaction carryOutTransaction(@RequestBody TransactionDTO request) {
 
         log.info("Transaction service initialized.");
         var response = service.carryOutTransaction(request);

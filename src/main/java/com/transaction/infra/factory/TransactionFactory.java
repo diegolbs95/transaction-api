@@ -16,8 +16,8 @@ public class TransactionFactory {
         return Transaction.builder()
                 .sender(sender)
                 .receiver(receiver)
-                .value(value)
-                .transactionDateTime(LocalDateTime.parse(LocalDateTime.now().format(dateTimeFormate)))
+                .amount(value)
+                .transactionDateTime(LocalDateTime.now().format(dateTimeFormate))
                 .build();
     }
 }
