@@ -36,6 +36,5 @@ jobs:
 
       - name: Remove docker container
         run: docker-compose rm -f deploy_transaction
-
       - name: Run docker container
         run: docker-compose up -d
