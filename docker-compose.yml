@@ -9,25 +9,25 @@ services:
     networks:
       - aw-network
     environment:
-      - POSTGRES_DB=${DB_NAME}
-      - POSTGRES_USER=${DATABASE_USERNAME}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=transaction_database
+      - POSTGRES_USER=transaction
+      - POSTGRES_PASSWORD=transaction123
     ports:
       - 5441:5432
 
   transaction_microservice:
     build:
-      context: .
-      dockerfile: Dockerfile
+      dockerfile: ./Dockerfile
     container_name: transaction_microservice
     networks:
       - aw-network
     ports:
       - 8080:8080
     environment:
-      - SPRING_DATASOURCE_URL=${DATABASE_URL}
-      - SPRING_DATASOURCE_USERNAME=${DATABASE_USERNAME}
-      - SPRING_DATASOURCE_PASSWORD=${DATABASE_PASSWORD}
+      - ALLOW_ORIGIN=http://localhost:8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db_transaction:5432/transaction_database
+      - SPRING_DATASOURCE_USERNAME=transaction
+      - SPRING_DATASOURCE_PASSWORD=transaction123
 
 networks:
   aw-network:
