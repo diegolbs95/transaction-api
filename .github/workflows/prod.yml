@@ -36,6 +36,6 @@ jobs:
       - name: Pull imagem docker hub
         run: sudo docker pull diegolbs95/app.jar:latest
       - name: Remove docker container
-        run: docker rm -f deploy_transaction
+        run: sudo docker rm -f deploy_transaction
       - name: Run docker container
-        run: docker run -d -p 8080:8080 -e DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}} -e DATABASE_PASSWORD='${{secrets.DATABASE_PASSWORD}}' -e DATABASE_URL=${{secrets.DATABASE_URL}} --name deploy_transaction diegolbs95/app.jar
+        run: sudo docker run -d -p 8080:8080 -e DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}} -e DATABASE_PASSWORD='${{secrets.DATABASE_PASSWORD}}' -e DATABASE_URL=${{secrets.DATABASE_URL}} --name deploy_transaction diegolbs95/app.jar
