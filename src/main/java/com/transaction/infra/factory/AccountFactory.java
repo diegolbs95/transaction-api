@@ -12,7 +12,9 @@ import static com.transaction.infra.util.GenerateAccountNumber.generateAccountNu
 @UtilityClass
 public class AccountFactory {
 
-    public static Account accountFactory(String cpfCnpj, DateTimeFormatter formatter) {
+    public static Account accountFactory(String cpfCnpj) {
+
+        var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return Account.builder()
                 .accountNumber(generateAccountNumber())
                 .balance(new BigDecimal("100.0"))

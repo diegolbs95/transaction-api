@@ -1,5 +1,7 @@
 package com.transaction.usercase.service;
 
+import com.transaction.infra.exception.PayerOrBeneficiaryDoesNotExistException;
+import com.transaction.infra.persistence.domain.User;
 import com.transaction.infra.persistence.repository.UserRepository;
 import com.transaction.usercase.dto.UserDto;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +30,10 @@ public class UserService {
 
         repository.save(user);
         return "Registered User.";
+    }
+
+    public User findByUserOrCpfCnpj(String cpfCnpj){
+        return repository.findByCpfCnpj(cpfCnpj)
+                .orElseThrow(() -> new PayerOrBeneficiaryDoesNotExistException("User not found with CPF or CNPJ."));
     }
 }

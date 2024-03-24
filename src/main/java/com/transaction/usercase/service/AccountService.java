@@ -6,8 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.format.DateTimeFormatter;
-
 import static com.transaction.infra.factory.AccountFactory.accountFactory;
 
 @Service
@@ -19,9 +17,7 @@ public class AccountService {
     @Transactional
     public Account createAccount(String cpfCnpj) {
 
-        var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        var account =  accountFactory(cpfCnpj, formatter);
+        var account =  accountFactory(cpfCnpj);
         return repository.save(account);
     }
 }
