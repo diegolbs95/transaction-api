@@ -30,17 +30,17 @@ jobs:
         run: docker push diegolbs95/app.jar
 
       - name: Start Docker Compose
-        run: docker-compose -f path/to/your/docker-compose.yml up -d
+        run: docker-compose up -d
 
   deploy:
     needs: build
     runs-on: self-hosted
     steps:
       - name: Pull imagem docker hub
-        run: docker-compose -f path/to/your/docker-compose.yml pull
+        run: docker-compose pull
 
       - name: Remove docker container
-        run: docker-compose -f path/to/your/docker-compose.yml rm -f deploy_transaction
+        run: docker-compose rm -f deploy_transaction
 
       - name: Run docker container
-        run: docker-compose -f path/to/your/docker-compose.yml up -d
+        run: docker-compose up -d
