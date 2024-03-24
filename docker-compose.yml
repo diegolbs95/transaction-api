@@ -17,7 +17,8 @@ services:
 
   transaction_microservice:
     build:
-      dockerfile: ./Dockerfile
+      context: .
+      dockerfile: Dockerfile
     container_name: transaction_microservice
     networks:
       - aw-network
